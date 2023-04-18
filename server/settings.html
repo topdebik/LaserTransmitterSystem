@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settings</title>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+  </head>
+  <body>
+    <div style="margin-top: 10px; margin-bottom: 10px;">Camera</div>
+    <div><input type="submit" value="Show Camera Stream" onclick="window.location='camera.html';"/></div>
+    <div style="margin-top: 20px; margin-bottom: 10px;">Manual Set</div>
+    <div><input style="height: 30px; width: 30px; margin-left: 30px;" type="submit" value="^" onclick="httpPostAsync('turnXUp', JSON.stringify({}), function(){});"/></div>
+    <div><input style="height: 30px; width: 30px;" type="submit" value="&lt;" onclick="httpPostAsync('turnZLeft', JSON.stringify({}), function(){});"/><input style="height: 30px; width: 30px; margin-left: 30px;" type="submit" value="&gt;" onclick="httpPostAsync('turnZRight', JSON.stringify({}), function(){});"/></div>
+    <div><input style="height: 30px; width: 30px; margin-left: 30px;" type="submit" value="v" onclick="httpPostAsync('turnXDown', JSON.stringify({}), function(){});"/></div>
+    <div style="margin-top: 20px; margin-bottom: 10px;">Laser Settings</div>
+    <div style="margin-top: 10px; margin-bottom: 10px;"><input type="submit" value="Turn On Laser" onclick="httpPostAsync('turnOnLaser', JSON.stringify({}), function(){});"/><input type="submit" value="Turn Off Laser" onclick="httpPostAsync('turnOffLaser', JSON.stringify({}), function(){});"/></div>
+    <div style="margin-top: 20px; margin-bottom: 10px;">Fan Settings</div>
+    <div style="margin-top: 10px; margin-bottom: 10px;"><input type="submit" value="Turn On Fan" onclick="httpPostAsync('turnOnFan', JSON.stringify({}), function(){});"/><input type="submit" value="Turn Off Fan" onclick="httpPostAsync('turnOffFan', JSON.stringify({}), function(){});"/></div>
+    <div style="margin-top: 20px; margin-bottom: 10px;">Other</div>
+    <div style="margin-top: 10px; margin-bottom: 10px;"><input type="submit" value="Calibrate Gyroscope" onclick="httpPostAsync('calibrateGyro', JSON.stringify({}), function(){});"/><input type="submit" value="Reset To Defaults" onclick="httpPostAsync('resetToDefaults', JSON.stringify({}), function(){});"/></div>
+  </body>
+  <script>
+  function httpPostAsync(method, params, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(xmlHttp.responseText);
+      else
+        callback(`Error ${xmlHttp.status}`)
+    }
+    xmlHttp.open("POST", window.location.href + method, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/json");
+    xmlHttp.send(params);
+  }
+  </script>
+</html>

@@ -1,0 +1,8 @@
+.userMessage-item {
+  text-align: left;
+  color: red;
+}
+.partnerMessage-item {
+  text-align: right;
+  color: green;
+}
